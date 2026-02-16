@@ -12,8 +12,5 @@
                 "anthropic.claude-code"
             ]
         }
-    },
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/node"
-    ]
+    }
 }
