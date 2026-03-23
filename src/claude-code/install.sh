@@ -45,11 +45,12 @@ install_packages() {
 # Function to install Claude Code CLI using the native installer
 install_claude_code() {
     echo "Installing Claude Code CLI..."
-    curl -fsSL https://claude.ai/install.sh | bash
+    su - "$_REMOTE_USER" -c 'curl -fsSL https://claude.ai/install.sh | bash'
 
     # The native installer places the binary in ~/.local/bin (symlink to ~/.local/share/claude/).
     # Copy the resolved binary to /usr/local/bin so it is available to all users.
-    CLAUDE_LOCAL="$HOME/.local/bin/claude"
+    REMOTE_USER_HOME=$(eval echo "~$_REMOTE_USER")
+    CLAUDE_LOCAL="$REMOTE_USER_HOME/.local/bin/claude"
     if [ -e "$CLAUDE_LOCAL" ]; then
         CLAUDE_REAL="$(readlink -f "$CLAUDE_LOCAL")"
         cp "$CLAUDE_REAL" /usr/local/bin/claude
