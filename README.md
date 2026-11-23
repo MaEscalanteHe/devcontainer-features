@@ -13,7 +13,7 @@ To use this feature in your devcontainer, add it to your `devcontainer.json` fil
 
 ```json
 "features": {
-    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+    "ghcr.io/anthropics/devcontainer-features/claude-code:2.0": {}
 }
 ```
 

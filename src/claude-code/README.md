@@ -6,7 +6,7 @@ Installs the Claude Code CLI globally
 
 ```json
 "features": {
-    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
+    "ghcr.io/anthropics/devcontainer-features/claude-code:2": {}
 }
 ```
 
@@ -23,40 +23,34 @@ Installs the Claude Code CLI globally
 
 # Using Claude Code in devcontainers
 
-## Requirements
+## Installation
 
-This feature requires Node.js and npm to be available in the container. You need to either:
+This feature installs Claude Code using the [native installer](https://claude.ai/install.sh). No additional features or dependencies need to be added to your devcontainer configuration.
 
-1. Use a base container image that includes Node.js, or
-2. Add the Node.js feature to your devcontainer.json
-3. Let this feature attempt to install Node.js automatically (best-effort, works on Debian/Ubuntu, Alpine, Fedora, RHEL, and CentOS)
+```json
+"features": {
+    "ghcr.io/anthropics/devcontainer-features/claude-code:2": {}
+}
+```
 
-Note: When auto-installing Node.js, a compatible LTS version (Node.js 18.x) will be used.
+## Upgrading from version 1
 
-## Recommended configuration
-
-For most setups, we recommend explicitly adding both features:
+Version 1 installed Node.js when it was missing. Version 2 no longer does, so if you relied on this feature for `node` and `npm`, add the Node.js feature:
 
 ```json
 "features": {
     "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
+    "ghcr.io/anthropics/devcontainer-features/claude-code:2": {}
 }
 ```
 
-## Using with containers that already have Node.js
+## Alpine Linux
 
-If your container already has Node.js installed (for example, a container based on a Node.js image or one using nvm), you can use the Claude Code feature directly without adding the Node.js feature:
+On Alpine-based containers, this feature automatically installs the required additional dependencies: `libgcc`, `libstdc++`, and `ripgrep`.
 
-```json
-"features": {
-    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
-}
-```
+## Deprecation notice
 
-## Using with nvm
-
-When using with containers that have nvm pre-installed, you can use the Claude Code feature directly, and it will use the existing Node.js installation.
+The previous NPM-based installation method (`npm install -g @anthropic-ai/claude-code`) has been deprecated. This feature now uses the native installer. For more information, see the [official documentation](https://code.claude.com/docs/en/getting-started#npm-installation-deprecated).
 
 ---
 

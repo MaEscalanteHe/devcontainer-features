@@ -6,7 +6,18 @@ This feature installs Claude Code using the [native installer](https://claude.ai
 
 ```json
 "features": {
-    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
+    "ghcr.io/anthropics/devcontainer-features/claude-code:2": {}
+}
+```
+
+## Upgrading from version 1
+
+Version 1 installed Node.js when it was missing. Version 2 no longer does, so if you relied on this feature for `node` and `npm`, add the Node.js feature:
+
+```json
+"features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/anthropics/devcontainer-features/claude-code:2": {}
 }
 ```
 
