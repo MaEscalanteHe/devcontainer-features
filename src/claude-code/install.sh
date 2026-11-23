@@ -47,14 +47,12 @@ install_claude_code() {
     echo "Installing Claude Code CLI..."
     su - "$_REMOTE_USER" -c 'curl -fsSL https://claude.ai/install.sh | bash'
 
-    # The native installer places the binary in ~/.local/bin (symlink to ~/.local/share/claude/).
-    # Copy the resolved binary to /usr/local/bin so it is available to all users.
+    # The native installer manages ~/.local/bin/claude as a symlink into ~/.local/share/claude/versions/.
+    # Link to that launcher (not the resolved version) so auto-updates are picked up and claude is on every PATH.
     REMOTE_USER_HOME=$(eval echo "~$_REMOTE_USER")
     CLAUDE_LOCAL="$REMOTE_USER_HOME/.local/bin/claude"
     if [ -e "$CLAUDE_LOCAL" ]; then
-        CLAUDE_REAL="$(readlink -f "$CLAUDE_LOCAL")"
-        cp "$CLAUDE_REAL" /usr/local/bin/claude
-        chmod +x /usr/local/bin/claude
+        ln -sf "$CLAUDE_LOCAL" /usr/local/bin/claude
         echo "Claude Code CLI installed successfully!"
         /usr/local/bin/claude --version
         return 0
